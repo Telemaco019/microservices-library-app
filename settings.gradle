@@ -1,0 +1,5 @@
+rootProject.name = 'microservices-library-app'
+
+include 'catalogue-service'
+
+project(':catalogue-service').buildFileName = 'catalogue-service.gradle'
