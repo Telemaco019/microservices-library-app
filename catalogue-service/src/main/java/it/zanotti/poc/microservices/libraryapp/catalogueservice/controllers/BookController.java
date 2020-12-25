@@ -1,5 +1,6 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers;
 
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
@@ -46,7 +47,13 @@ public class BookController {
         book.setAuthors(authorList);
 
         final Book savedBook = bookRepository.save(book);
-        kafkaTemplate.send(AppConsts.TOPIC_BOOKS, book);
+
+        // todo: refactoring, move in Book class
+        final BookCreatedEvent bookCreatedEvent = new BookCreatedEvent();
+        bookCreatedEvent.setAuthors(book.getAuthors().stream().map(Author::getName).collect(Collectors.toList()));
+        bookCreatedEvent.setBookId(book.getId());
+
+        kafkaTemplate.send(AppConsts.TOPIC_BOOKS, bookCreatedEvent);
 
         return new ResponseEntity<>(savedBook, HttpStatus.OK);
     }
