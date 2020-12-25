@@ -1,6 +1,6 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers;
 
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers.requests.CreateOrUpdateBookReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.services.BookRepository;
@@ -27,10 +27,10 @@ import java.util.stream.Collectors;
 @RestController
 public class BookController {
     private final BookRepository bookRepository;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Autowired
-    public BookController(BookRepository bookRepository, KafkaTemplate<String, String> kafkaTemplate) {
+    public BookController(BookRepository bookRepository, KafkaTemplate<String, Object> kafkaTemplate) {
         this.bookRepository = bookRepository;
         this.kafkaTemplate = kafkaTemplate;
     }
@@ -46,7 +46,7 @@ public class BookController {
         book.setAuthors(authorList);
 
         final Book savedBook = bookRepository.save(book);
-        kafkaTemplate.send(AppConsts.TOPIC_BOOKS, "book created");
+        kafkaTemplate.send(AppConsts.TOPIC_BOOKS, book);
 
         return new ResponseEntity<>(savedBook, HttpStatus.OK);
     }

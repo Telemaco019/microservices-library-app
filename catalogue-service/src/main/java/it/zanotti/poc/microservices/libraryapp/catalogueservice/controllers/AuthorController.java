@@ -1,7 +1,7 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers;
 
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers.requests.CreateOrUpdateAuthorReq;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers.requests.GetAuthorsReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateAuthorReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.GetAuthorsReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.services.AuthorRepository;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.utils.OffsetBasedPageRequest;

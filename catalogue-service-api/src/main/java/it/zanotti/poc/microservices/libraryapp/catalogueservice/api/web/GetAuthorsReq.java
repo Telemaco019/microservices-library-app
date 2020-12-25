@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers.requests;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web;
 
 import lombok.Data;
 
