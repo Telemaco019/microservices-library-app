@@ -3,13 +3,29 @@ services:
   postgres:
     image: postgres:13.1-alpine
     ports:
-    - 5432:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     volumes:
-    - ./sql/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
-    - postgres-data:/var/lib/postgresql/data
+      - ./sql/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - postgres-data:/var/lib/postgresql/data
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka0:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   postgres-data:
