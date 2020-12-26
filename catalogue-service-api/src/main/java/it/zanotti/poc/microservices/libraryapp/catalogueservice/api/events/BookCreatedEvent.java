@@ -2,6 +2,7 @@ package it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -11,13 +12,9 @@ import java.util.List;
 public class BookCreatedEvent implements BookDomainEvent {
     private String bookTitle;
     private List<String> authors;
-
-    public BookCreatedEvent() {
-
-    }
-
-    public BookCreatedEvent(String bookTitle, List<String> authors) {
-        this.bookTitle = bookTitle;
-        this.authors = authors;
-    }
+    private String subtitle;
+    private Integer pages;
+    private String publisher;
+    private String description;
+    private LocalDate publishedDate;
 }

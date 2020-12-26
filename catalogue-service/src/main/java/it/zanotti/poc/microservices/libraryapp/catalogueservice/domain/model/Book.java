@@ -39,11 +39,6 @@ public class Book {
 
     }
 
-    public Book(String title, List<Author> authors) {
-        this.title = title;
-        this.authors = authors;
-    }
-
     public List<BookDomainEvent> deleteBook() {
         return Collections.singletonList(new BookDeletedEvent(id));
     }
@@ -96,10 +91,15 @@ public class Book {
         }
 
         public ResultWithDomainEvents<Book, BookDomainEvent> buildBook() {
-            final BookCreatedEvent bookCreatedEvent = new BookCreatedEvent(
-                    book.getTitle(),
-                    book.getAuthors().stream().map(Author::getName).collect(Collectors.toList())
-            );
+            final List<String> authors = book.getAuthors().stream().map(Author::getName).collect(Collectors.toList());
+            final BookCreatedEvent bookCreatedEvent = new BookCreatedEvent();
+            bookCreatedEvent.setBookTitle(book.getTitle());
+            bookCreatedEvent.setDescription(book.getDescription());
+            bookCreatedEvent.setPages(book.getPages());
+            bookCreatedEvent.setPublishedDate(book.getPublishedDate());
+            bookCreatedEvent.setSubtitle(book.getSubtitle());
+            bookCreatedEvent.setPublisher(book.getPublisher());
+            bookCreatedEvent.setAuthors(authors);
             return new ResultWithDomainEvents<>(book, Collections.singletonList(bookCreatedEvent));
         }
 
