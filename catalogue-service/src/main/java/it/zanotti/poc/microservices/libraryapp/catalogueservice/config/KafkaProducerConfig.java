@@ -27,25 +27,9 @@ public class KafkaProducerConfig {
         this.kafkaProperties = kafkaProperties;
     }
 
-    // String
     @Bean
-    public ProducerFactory<String, String> stringProducerFactory() {
-        Map<String, Object> configProps = new HashMap<>(kafkaProperties.buildProducerProperties());
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        return new DefaultKafkaProducerFactory<>(configProps);
-    }
-
-    @Bean
-    public KafkaTemplate<String, String> stringKafkaTemplate(ProducerFactory<String, String> producerFactory) {
-        return new KafkaTemplate<>(producerFactory);
-    }
-
-
-    // JSON
-    @Bean()
     public ProducerFactory<String, Object> jsonProducerFactory() {
-        Map<String, Object> configProps = new HashMap<>(kafkaProperties.buildProducerProperties());
+        final Map<String, Object> configProps = new HashMap<>(kafkaProperties.buildProducerProperties());
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);

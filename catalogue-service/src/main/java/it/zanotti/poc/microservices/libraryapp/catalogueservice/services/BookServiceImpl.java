@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public Book deleteBook(Integer bookId) throws BookNotFoundException {
         final Book bookToDelete = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
         final List<BookDomainEvent> bookDomainEvents = bookToDelete.deleteBook();
@@ -39,6 +41,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public Book createBook(String bookTitle, List<Author> bookAuthors) {
         final ResultWithDomainEvents<Book, BookDomainEvent> bookAndEvents = Book.createBook(bookTitle, bookAuthors);
         final Book savedBook = bookRepository.save(bookAndEvents.getResult());

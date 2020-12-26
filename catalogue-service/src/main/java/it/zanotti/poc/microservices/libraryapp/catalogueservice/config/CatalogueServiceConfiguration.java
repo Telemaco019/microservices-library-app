@@ -13,6 +13,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 public class CatalogueServiceConfiguration {
     @Bean
     public DomainEventPublisherService domainEventPublisherService(KafkaTemplate<String, Object> kafkaTemplate) {
-       return new DomainEventPublisherServiceImpl(kafkaTemplate);
+        return new DomainEventPublisherServiceImpl(kafkaTemplate);
     }
 }
