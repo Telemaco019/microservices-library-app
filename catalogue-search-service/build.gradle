@@ -12,6 +12,7 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    implementation 'org.springframework.boot:spring-boot-starter-data-solr:2.4.1'
     implementation 'org.springframework.kafka:spring-kafka:2.6.4'
 
     implementation project(':commons')
