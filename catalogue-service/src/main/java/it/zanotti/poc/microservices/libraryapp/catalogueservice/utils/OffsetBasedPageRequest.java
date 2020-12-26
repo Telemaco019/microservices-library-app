@@ -22,7 +22,7 @@ public class OffsetBasedPageRequest implements Pageable {
      * @param limit  the size of the elements to be returned.
      * @param sort   can be {@literal null}.
      */
-    public OffsetBasedPageRequest(long offset, int limit, Sort sort) {
+    public OffsetBasedPageRequest(int limit, long offset, Sort sort) {
         if (offset < 0) {
             throw new IllegalArgumentException("Offset index must not be less than zero!");
         }
@@ -43,7 +43,7 @@ public class OffsetBasedPageRequest implements Pageable {
      * @param direction  the direction of the {@link Sort} to be specified, can be {@literal null}.
      * @param properties the properties to sort by, must not be {@literal null} or empty.
      */
-    public OffsetBasedPageRequest(int offset, int limit, Sort.Direction direction, String... properties) {
+    public OffsetBasedPageRequest(int limit, int offset, Sort.Direction direction, String... properties) {
         this(offset, limit, Sort.by(direction, properties));
     }
 
@@ -53,7 +53,7 @@ public class OffsetBasedPageRequest implements Pageable {
      * @param offset zero-based offset.
      * @param limit  the size of the elements to be returned.
      */
-    public OffsetBasedPageRequest(int offset, int limit) {
+    public OffsetBasedPageRequest(int limit, int offset) {
         this(offset, limit, Sort.unsorted());
     }
 
@@ -79,11 +79,11 @@ public class OffsetBasedPageRequest implements Pageable {
 
     @Override
     public Pageable next() {
-        return new OffsetBasedPageRequest(getOffset() + getPageSize(), getPageSize(), getSort());
+        return new OffsetBasedPageRequest(getPageSize(), getOffset() + getPageSize(), getSort());
     }
 
     public OffsetBasedPageRequest previous() {
-        return hasPrevious() ? new OffsetBasedPageRequest(getOffset() - getPageSize(), getPageSize(), getSort()) : this;
+        return hasPrevious() ? new OffsetBasedPageRequest(getPageSize(), getOffset() - getPageSize(), getSort()) : this;
     }
 
 
