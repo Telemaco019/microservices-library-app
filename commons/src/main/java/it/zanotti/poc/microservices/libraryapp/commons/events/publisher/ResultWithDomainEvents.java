@@ -1,4 +1,6 @@
-package it.zanotti.poc.microservices.libraryapp.commons.events;
+package it.zanotti.poc.microservices.libraryapp.commons.events.publisher;
+
+import it.zanotti.poc.microservices.libraryapp.commons.events.common.DomainEvent;
 
 import java.util.List;
 

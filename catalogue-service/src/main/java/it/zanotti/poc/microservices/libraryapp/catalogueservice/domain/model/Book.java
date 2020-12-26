@@ -3,7 +3,7 @@ package it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDeletedEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDomainEvent;
-import it.zanotti.poc.microservices.libraryapp.commons.events.ResultWithDomainEvents;
+import it.zanotti.poc.microservices.libraryapp.commons.events.publisher.ResultWithDomainEvents;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -38,7 +38,7 @@ public class Book {
         this.authors = authors;
     }
 
-    public static ResultWithDomainEvents<Book, BookCreatedEvent> createBook(String title, List<Author> authors) {
+    public static ResultWithDomainEvents<Book, BookDomainEvent> createBook(String title, List<Author> authors) {
         final BookCreatedEvent bookCreatedEvent = new BookCreatedEvent(
                 title,
                 authors.stream().map(Author::getName).collect(Collectors.toList())

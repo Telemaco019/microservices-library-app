@@ -1,4 +1,5 @@
 version '0.0.1-SNAPSHOT'
 
 dependencies {
+    compileOnly 'org.springframework.kafka:spring-kafka:2.6.4' // todo: create separate library
 }

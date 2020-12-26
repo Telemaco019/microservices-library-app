@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.services;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.repositories;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 import org.springframework.data.domain.Page;

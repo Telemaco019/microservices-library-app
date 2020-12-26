@@ -55,6 +55,4 @@ public class KafkaProducerConfig {
     public KafkaTemplate<String, Object> jsonKafkaTemplate(ProducerFactory<String, Object> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
-
-
 }
