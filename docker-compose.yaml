@@ -27,6 +27,19 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  solr:
+    image: solr:8.7.0
+    ports:
+      - 8983:8983
+    volumes:
+    - solr-data:/var/solr
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - mycore
+
 volumes:
   postgres-data:
+    driver: local
+  solr-data:
     driver: local
