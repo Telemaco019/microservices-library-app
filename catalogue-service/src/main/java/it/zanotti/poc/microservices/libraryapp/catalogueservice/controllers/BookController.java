@@ -2,7 +2,6 @@ package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.exceptions.BookNotFoundException;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Michele Zanotti on 24/12/20
@@ -32,11 +30,7 @@ public class BookController {
 
     @PostMapping("/api/v1/books")
     public ResponseEntity<Book> createOrUpdateBook(@RequestBody CreateOrUpdateBookReq request) {
-        final List<Author> authorList = request.getAuthors()
-                .stream()
-                .map(Author::new)
-                .collect(Collectors.toList());
-        final Book savedBook = bookService.createBook(request.getTitle(), authorList);
+        final Book savedBook = bookService.createBook(request);
         return new ResponseEntity<>(savedBook, HttpStatus.OK);
     }
 

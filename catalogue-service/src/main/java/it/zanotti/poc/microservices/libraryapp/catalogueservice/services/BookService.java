@@ -1,7 +1,7 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.services;
 
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.exceptions.BookNotFoundException;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface BookService {
     Book deleteBook(Integer bookId) throws BookNotFoundException;
 
-    Book createBook(String bookTitle, List<Author> bookAuthors);
+    Book createBook(CreateOrUpdateBookReq req);
 
     List<Book> getBooks(Integer limit, Integer offset);
 }

@@ -1,6 +1,7 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.services;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDomainEvent;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.BookDomainEventPublisher;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.exceptions.BookNotFoundException;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Michele Zanotti on 26/12/20
@@ -42,8 +44,21 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public Book createBook(String bookTitle, List<Author> bookAuthors) {
-        final ResultWithDomainEvents<Book, BookDomainEvent> bookAndEvents = Book.createBook(bookTitle, bookAuthors);
+    public Book createBook(CreateOrUpdateBookReq req) {
+        final ResultWithDomainEvents<Book, BookDomainEvent> bookAndEvents = Book.BookBuilder.newBook()
+                .withAuthors(
+                        req.getAuthors()
+                                .stream()
+                                .map(Author::new)
+                                .collect(Collectors.toList())
+                )
+                .withTitle(req.getTitle())
+                .withDescription(req.getDescription())
+                .withPublishedDate(req.getPublishedDate())
+                .withSubtitle(req.getSubtitle())
+                .withPages(req.getPages())
+                .withPublisher(req.getPublisher())
+                .buildBook();
         final Book savedBook = bookRepository.save(bookAndEvents.getResult());
         final List<BookDomainEvent> events = bookAndEvents.getEvents();
         eventPublisher.publish(savedBook, events);
