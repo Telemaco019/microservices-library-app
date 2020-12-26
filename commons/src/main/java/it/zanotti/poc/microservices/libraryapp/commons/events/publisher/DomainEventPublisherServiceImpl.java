@@ -16,10 +16,10 @@ public class DomainEventPublisherServiceImpl implements DomainEventPublisherServ
     }
 
     @Override
-    public void publish(String aggregateType, Object aggregateId, List<DomainEvent> domainEvents) {
+    public void publish(String topicName, Object aggregateId, List<DomainEvent> domainEvents) {
         for (DomainEvent event : domainEvents) {
             kafkaTemplate.send(
-                    aggregateType, // topic
+                    topicName, // topic
                     String.valueOf(aggregateId), // key
                     event // payload
             );

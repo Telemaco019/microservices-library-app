@@ -10,20 +10,20 @@ import java.util.function.Function;
  **/
 public abstract class DomainEventPublisher<A, E extends DomainEvent> {
     private final DomainEventPublisherService publisherService;
-    private final Class<A> aggregateType;
+    private final String topicName;
     private final Function<A, Object> idSupplier;
 
     protected DomainEventPublisher(DomainEventPublisherService publisherService,
-                                   Class<A> aggregateType,
+                                   String topicName,
                                    Function<A, Object> idSupplier) {
         this.publisherService = publisherService;
-        this.aggregateType = aggregateType;
+        this.topicName = topicName;
         this.idSupplier = idSupplier;
     }
 
     public void publish(A aggregate, List<E> events) {
         publisherService.publish(
-                aggregateType.getName(),
+                topicName,
                 idSupplier.apply(aggregate),
                 (List<DomainEvent>) events
         );
