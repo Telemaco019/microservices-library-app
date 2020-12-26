@@ -21,13 +21,14 @@ public class BookEventsConsumer {
     @KafkaHandler
     public void handleBookCreated(@Payload BookCreatedEvent bookCreatedEvent,
                                   @Header(value = KafkaHeaders.MESSAGE_KEY, required = false) String messageKey,
+                                  @Header(value = KafkaHeaders.RECEIVED_PARTITION_ID) Integer partitionId,
                                   @Header(KafkaHeaders.GROUP_ID) String groupId) {
-        log.info("Received message (consumer group {}): {}", groupId, bookCreatedEvent);
+        log.debug("Received message [group {}, partition {}]: {}", groupId, partitionId, bookCreatedEvent);
     }
 
     @KafkaHandler
     public void handleBookDeleted(@Payload BookDeletedEvent bookCreatedEvent) {
-        log.info("Received message: {}", bookCreatedEvent);
+        log.debug("Received message: {}", bookCreatedEvent);
     }
 
     @KafkaHandler(isDefault = true)
