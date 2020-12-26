@@ -14,7 +14,7 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic booksTopic() {
         return TopicBuilder.name(AppConsts.TOPIC_BOOKS)
-                .partitions(1)
+                .partitions(5)
                 .replicas(1)
                 .build();
     }
