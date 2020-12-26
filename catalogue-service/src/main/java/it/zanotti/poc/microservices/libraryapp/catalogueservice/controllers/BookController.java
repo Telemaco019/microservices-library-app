@@ -1,6 +1,7 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDeletedEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
@@ -65,9 +66,14 @@ public class BookController {
         return new ResponseEntity<>(result.getContent(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/v1/book/{bookId}")
+    @DeleteMapping("/api/v1/books/{bookId}")
     public ResponseEntity<Boolean> deleteBook(@PathVariable Integer bookId) {
         bookRepository.deleteById(bookId);
+
+        final BookDeletedEvent bookDeletedEvent = new BookDeletedEvent();
+        bookDeletedEvent.setBookId(bookId);
+        kafkaTemplate.send(AppConsts.TOPIC_BOOKS, bookDeletedEvent);
+
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 }
