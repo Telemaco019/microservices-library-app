@@ -9,7 +9,15 @@ import java.util.List;
  **/
 @Data
 public class BookCreatedEvent implements BookDomainEvent {
-    private Integer bookId;
     private String bookTitle;
     private List<String> authors;
+
+    public BookCreatedEvent() {
+
+    }
+
+    public BookCreatedEvent(String bookTitle, List<String> authors) {
+        this.bookTitle = bookTitle;
+        this.authors = authors;
+    }
 }

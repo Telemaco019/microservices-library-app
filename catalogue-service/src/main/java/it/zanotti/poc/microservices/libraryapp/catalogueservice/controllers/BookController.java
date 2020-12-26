@@ -1,13 +1,14 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDeletedEvent;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDomainEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.services.BookRepository;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.utils.OffsetBasedPageRequest;
 import it.zanotti.poc.microservices.libraryapp.commons.AppConsts;
+import it.zanotti.poc.microservices.libraryapp.commons.events.ResultWithDomainEvents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -43,18 +45,14 @@ public class BookController {
                 .stream()
                 .map(Author::new)
                 .collect(Collectors.toList());
-        final Book book = new Book();
-        book.setTitle(request.getTitle());
-        book.setAuthors(authorList);
+        final ResultWithDomainEvents<Book, BookCreatedEvent> bookAndEvents = Book.createBook(request.getTitle(), authorList);
 
-        final Book savedBook = bookRepository.save(book);
+        final Book savedBook = bookRepository.save(bookAndEvents.getResult());
+        final List<BookCreatedEvent> events = bookAndEvents.getEvents();
 
-        // todo: refactoring, move in Book class
-        final BookCreatedEvent bookCreatedEvent = new BookCreatedEvent();
-        bookCreatedEvent.setAuthors(book.getAuthors().stream().map(Author::getName).collect(Collectors.toList()));
-        bookCreatedEvent.setBookId(book.getId());
-
-        kafkaTemplate.send(AppConsts.TOPIC_BOOKS, bookCreatedEvent);
+        for (BookCreatedEvent event : events) {
+            kafkaTemplate.send(AppConsts.TOPIC_BOOKS, String.valueOf(bookAndEvents.getResult().getId()), event);
+        }
 
         return new ResponseEntity<>(savedBook, HttpStatus.OK);
     }
@@ -68,12 +66,16 @@ public class BookController {
 
     @DeleteMapping("/api/v1/books/{bookId}")
     public ResponseEntity<Boolean> deleteBook(@PathVariable Integer bookId) {
-        bookRepository.deleteById(bookId);
-
-        final BookDeletedEvent bookDeletedEvent = new BookDeletedEvent();
-        bookDeletedEvent.setBookId(bookId);
-        kafkaTemplate.send(AppConsts.TOPIC_BOOKS, bookDeletedEvent);
-
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        Optional<Book> bookOpt = bookRepository.findById(bookId);
+        if (bookOpt.isPresent()) {
+            bookRepository.deleteById(bookId);
+            List<BookDomainEvent> bookDomainEvents = bookOpt.get().deleteBook();
+            for (BookDomainEvent event : bookDomainEvents) {
+                kafkaTemplate.send(AppConsts.TOPIC_BOOKS, String.valueOf(bookId), event);
+            }
+            return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

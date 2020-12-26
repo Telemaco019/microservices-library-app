@@ -8,4 +8,12 @@ import lombok.Data;
 @Data
 public class BookDeletedEvent implements BookDomainEvent {
     private Integer bookId;
+
+    public BookDeletedEvent() {
+
+    }
+
+    public BookDeletedEvent(Integer bookId) {
+        this.bookId = bookId;
+    }
 }
