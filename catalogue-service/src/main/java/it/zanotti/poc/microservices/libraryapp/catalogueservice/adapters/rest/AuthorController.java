@@ -29,7 +29,7 @@ public class AuthorController {
         this.authorRepository = authorRepository;
     }
 
-    @PostMapping("/api/v1/authors")
+    @PostMapping("/authors")
     public ResponseEntity<Author> createAuthor(@RequestBody CreateAuthorReq req) {
         final Author author = new Author();
         author.setName(req.getAuthorName());
@@ -37,7 +37,7 @@ public class AuthorController {
         return new ResponseEntity<>(authorRepository.save(author), HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/authors")
+    @GetMapping("/authors")
     public ResponseEntity<List<Author>> getAuthors(@RequestBody GetAuthorsReq req) {
         final Integer limit = req.getLimit();
         final Integer offset = req.getOffset();
@@ -45,7 +45,7 @@ public class AuthorController {
         return new ResponseEntity<>(authorRepository.findAll(pageRequest), HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/v1/authors/{authorId}")
+    @DeleteMapping("/authors/{authorId}")
     public ResponseEntity<Boolean> deleteAuthor(@PathVariable Integer authorId) {
         authorRepository.deleteById(authorId);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);

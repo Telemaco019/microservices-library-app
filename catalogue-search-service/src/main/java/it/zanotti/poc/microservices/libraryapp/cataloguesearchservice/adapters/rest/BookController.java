@@ -31,7 +31,7 @@ public class BookController {
         this.bookDocumentConverter = bookDocumentConverter;
     }
 
-    @GetMapping("/api/v1/books/searchByText")
+    @GetMapping("/books/searchByText")
     public ResponseEntity<List<SearchedBook>> searchByText(@Valid @RequestBody SearchBooksByTextReq req) {
         final List<SearchedBook> searchedBookList = bookSearchService.searchByText(req.getText(), req.getLimit(), req.getOffset())
                 .stream()

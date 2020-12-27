@@ -7,4 +7,5 @@ project(':catalogue-service').buildFileName = 'catalogue-service.gradle'
 include 'catalogue-search-service'
 include 'catalogue-service-api'
 include 'catalogue-search-service-api'
+include 'api-gateway'
 

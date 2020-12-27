@@ -1,7 +1,8 @@
 package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.api;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 
 /**

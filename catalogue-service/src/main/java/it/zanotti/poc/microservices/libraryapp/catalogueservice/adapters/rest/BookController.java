@@ -31,13 +31,13 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @PostMapping("/api/v1/books")
+    @PostMapping("/books")
     public ResponseEntity<Book> createBook(@Valid @RequestBody CreateBookReq request) {
         final Book savedBook = bookService.createBook(request);
         return new ResponseEntity<>(savedBook, HttpStatus.OK);
     }
 
-    @PutMapping("/api/v1/books")
+    @PutMapping("/books")
     public ResponseEntity<Book> updateBook(@Valid @RequestBody UpdateBookReq request) {
         final Book savedBook;
         try {
@@ -48,13 +48,13 @@ public class BookController {
         }
     }
 
-    @GetMapping("/api/v1/books")
+    @GetMapping("/books")
     public ResponseEntity<List<Book>> getBooks() {
         List<Book> books = bookService.getBooks(0, 10);
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/v1/books/{bookId}")
+    @DeleteMapping("/books/{bookId}")
     public ResponseEntity<Book> deleteBook(@PathVariable Integer bookId) {
         try {
             final Book deletedBook = bookService.deleteBook(bookId);
