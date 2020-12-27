@@ -1,6 +1,8 @@
+apply plugin: 'java'
 version '0.0.1-SNAPSHOT'
 
 dependencies {
     compileOnly 'org.springframework.kafka:spring-kafka:2.6.4' // todo: create separate library
-    compileOnly group: 'org.springframework.data', name: 'spring-data-commons', version: '2.4.2' // todo: create separate library
+    compileOnly group: 'org.springframework.data', name: 'spring-data-commons', version: '2.4.2'
+    // todo: create separate library
 }
