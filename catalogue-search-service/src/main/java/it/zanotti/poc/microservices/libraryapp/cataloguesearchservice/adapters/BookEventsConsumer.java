@@ -1,8 +1,7 @@
-package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.messaging;
+package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters;
 
-import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.converters.BookDocumentConverter;
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model.BookDocument;
-import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.repositories.SolrBookRepository;
+import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.ports.SolrBookRepository;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDeletedEvent;
 import it.zanotti.poc.microservices.libraryapp.commons.AppConsts;

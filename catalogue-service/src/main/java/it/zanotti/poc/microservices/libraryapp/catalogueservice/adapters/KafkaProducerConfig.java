@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.config;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.config;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice;
 
 import it.zanotti.poc.microservices.libraryapp.commons.events.publisher.DomainEventPublisherService;
 import it.zanotti.poc.microservices.libraryapp.commons.events.publisher.DomainEventPublisherServiceImpl;

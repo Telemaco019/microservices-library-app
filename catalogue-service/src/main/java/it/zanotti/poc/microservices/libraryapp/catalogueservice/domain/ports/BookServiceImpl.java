@@ -1,12 +1,11 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.services;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.ports;
 
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters.BookDomainEventPublisher;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDomainEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.BookDomainEventPublisher;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.exceptions.BookNotFoundException;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.repositories.BookRepository;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.exceptions.BookNotFoundException;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.utils.OffsetBasedPageRequest;
 import it.zanotti.poc.microservices.libraryapp.commons.events.publisher.ResultWithDomainEvents;
 import lombok.extern.slf4j.Slf4j;

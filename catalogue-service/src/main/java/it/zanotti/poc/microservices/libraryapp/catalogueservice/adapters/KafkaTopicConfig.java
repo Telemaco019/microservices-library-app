@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.config;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters;
 
 import it.zanotti.poc.microservices.libraryapp.commons.AppConsts;
 import org.apache.kafka.clients.admin.NewTopic;

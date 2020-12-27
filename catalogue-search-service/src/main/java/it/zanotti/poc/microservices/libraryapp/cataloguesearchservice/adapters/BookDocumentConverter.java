@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.converters;
+package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters;
 
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model.BookDocument;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;

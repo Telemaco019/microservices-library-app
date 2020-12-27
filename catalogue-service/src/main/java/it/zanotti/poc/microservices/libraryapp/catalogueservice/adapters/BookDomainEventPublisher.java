@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.domain;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDomainEvent;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;

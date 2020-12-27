@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.config;
+package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

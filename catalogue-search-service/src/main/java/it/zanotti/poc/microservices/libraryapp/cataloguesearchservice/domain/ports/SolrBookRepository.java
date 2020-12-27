@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.repositories;
+package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.ports;
 
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model.BookDocument;
 import org.springframework.data.solr.repository.SolrCrudRepository;
