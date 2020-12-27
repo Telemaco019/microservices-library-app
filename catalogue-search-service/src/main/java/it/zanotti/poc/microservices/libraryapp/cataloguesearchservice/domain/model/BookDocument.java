@@ -1,5 +1,6 @@
 package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model;
 
+import it.zanotti.poc.microservices.libraryapp.commons.AppConsts;
 import lombok.Data;
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.solr.core.mapping.SolrDocument;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author Michele Zanotti on 26/12/20
  **/
 @Data
-@SolrDocument(collection = "mycore")
+@SolrDocument(collection = AppConsts.SOLR_BOOK_CORE_NAME)
 public class BookDocument {
     @Field
     private Integer id;

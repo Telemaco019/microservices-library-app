@@ -1,5 +1,6 @@
 package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters;
 
+import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.converters.BookDocumentConverter;
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model.BookDocument;
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.ports.SolrBookRepository;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
@@ -35,21 +36,29 @@ public class BookEventsConsumer {
                                   @Header(value = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String messageKey,
                                   @Header(value = KafkaHeaders.RECEIVED_TOPIC) String topic,
                                   @Header(value = KafkaHeaders.RECEIVED_PARTITION_ID) Integer partitionId,
-                                  @Header(KafkaHeaders.GROUP_ID) String groupId) {
-        log.debug("Received message [topic {}, group {}, partition {}]", topic, groupId, partitionId);
-
+                                  @Header(value = KafkaHeaders.GROUP_ID) String groupId) {
+        logMessageReceived(topic, groupId, partitionId);
         final BookDocument bookDocument = bookDocumentConverter.toBookDocument(Integer.valueOf(messageKey), bookCreatedEvent);
         log.info("Saving in Solr book document [id: {}]", messageKey);
         solrBookRepository.save(bookDocument);
     }
 
     @KafkaHandler
-    public void handleBookDeleted(@Payload BookDeletedEvent bookCreatedEvent) {
-        log.debug("Received message: {}", bookCreatedEvent);
+    public void handleBookDeleted(@Payload BookDeletedEvent bookDeletedEvent,
+                                  @Header(value = KafkaHeaders.RECEIVED_TOPIC) String topic,
+                                  @Header(value = KafkaHeaders.RECEIVED_PARTITION_ID) Integer partitionId,
+                                  @Header(value = KafkaHeaders.GROUP_ID) String groupId) {
+        logMessageReceived(topic, groupId, partitionId);
+        log.info("Deleting from Solr book document [id: {}]", bookDeletedEvent.getBookId());
+        solrBookRepository.deleteById(bookDeletedEvent.getBookId());
     }
 
     @KafkaHandler(isDefault = true)
     public void handleDefault(Object object) {
         log.warn("Cannot handle message: {}", object.toString());
+    }
+
+    private void logMessageReceived(String topic, String groupId, Integer partitionId) {
+        log.debug("Received message [topic {}, group {}, partition {}]", topic, groupId, partitionId);
     }
 }

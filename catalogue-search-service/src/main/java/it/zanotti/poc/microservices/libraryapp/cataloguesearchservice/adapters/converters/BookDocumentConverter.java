@@ -1,5 +1,6 @@
-package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters;
+package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.converters;
 
+import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.rest.SearchedBook;
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model.BookDocument;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,16 @@ public class BookDocumentConverter {
         result.setDescription(bookCreatedEvent.getDescription());
         result.setTitle(bookCreatedEvent.getBookTitle());
         result.setSubtitle(bookCreatedEvent.getSubtitle());
+        return result;
+    }
+
+    public SearchedBook toSearchedBook(BookDocument bookDocument) {
+        final SearchedBook result = new SearchedBook();
+        result.setAuthors(bookDocument.getAuthors());
+        result.setDescription(bookDocument.getDescription());
+        result.setSubtitle(bookDocument.getSubtitle());
+        result.setTitle(bookDocument.getTitle());
+        result.setId(bookDocument.getId());
         return result;
     }
 }

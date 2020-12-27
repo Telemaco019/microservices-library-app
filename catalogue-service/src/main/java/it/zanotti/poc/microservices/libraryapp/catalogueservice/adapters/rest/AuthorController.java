@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.controllers;
+package it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters.rest;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateAuthorReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.GetAuthorsReq;
