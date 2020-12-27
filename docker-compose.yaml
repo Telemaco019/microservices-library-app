@@ -38,6 +38,22 @@ services:
       - solr-precreate
       - mycore
 
+  catalogue-service:
+    build: ./catalogue-service
+
+  catalogue-search-service:
+    build: ./catalogue-search-service
+    depends_on:
+      - catalogue-service
+
+  api-gateway:
+    build: ./api-gateway
+    depends_on:
+      - catalogue-service
+      - catalogue-search-service
+    ports:
+    - 8085:8085
+
 volumes:
   postgres-data:
     driver: local
