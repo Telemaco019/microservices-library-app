@@ -1,6 +1,6 @@
 package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.converters;
 
-import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.rest.SearchedBook;
+import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.api.SearchedBook;
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model.BookDocument;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookCreatedEvent;
 import org.springframework.stereotype.Component;

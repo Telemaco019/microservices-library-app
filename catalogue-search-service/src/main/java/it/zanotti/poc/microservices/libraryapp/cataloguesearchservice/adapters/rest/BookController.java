@@ -1,6 +1,8 @@
 package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.rest;
 
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.converters.BookDocumentConverter;
+import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.api.SearchBooksByTextReq;
+import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.api.SearchedBook;
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.ports.BookSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

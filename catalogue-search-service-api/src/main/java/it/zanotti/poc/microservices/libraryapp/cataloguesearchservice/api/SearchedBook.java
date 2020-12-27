@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.rest;
+package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.api;
 
 import lombok.Data;
 

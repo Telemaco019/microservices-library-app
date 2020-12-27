@@ -1,8 +1,8 @@
-package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.adapters.rest;
+package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.api;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 
 /**
  * @author Michele Zanotti on 27/12/20
