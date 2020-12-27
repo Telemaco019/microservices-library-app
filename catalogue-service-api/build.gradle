@@ -2,5 +2,6 @@ group 'it.zanotti.poc.microservices.libraryapp'
 version '0.0.1-SNAPSHOT'
 
 dependencies {
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
     implementation project(':commons')
 }

@@ -1,6 +1,6 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters.rest;
 
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateAuthorReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateAuthorReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.GetAuthorsReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.ports.AuthorRepository;
@@ -30,9 +30,8 @@ public class AuthorController {
     }
 
     @PostMapping("/api/v1/authors")
-    public ResponseEntity<Author> createOrUpdateAuthor(@RequestBody CreateOrUpdateAuthorReq req) {
+    public ResponseEntity<Author> createAuthor(@RequestBody CreateAuthorReq req) {
         final Author author = new Author();
-        author.setId(req.getAuthorId());
         author.setName(req.getAuthorName());
 
         return new ResponseEntity<>(authorRepository.save(author), HttpStatus.OK);

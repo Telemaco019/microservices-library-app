@@ -2,7 +2,8 @@ package it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.ports;
 
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters.BookDomainEventPublisher;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.events.BookDomainEvent;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateBookReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.UpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.exceptions.BookNotFoundException;
@@ -43,7 +44,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public Book createBook(CreateOrUpdateBookReq req) {
+    public Book createBook(CreateBookReq req) {
         final ResultWithDomainEvents<Book, BookDomainEvent> bookAndEvents = Book.BookBuilder.newBook()
                 .withAuthors(
                         req.getAuthors()
@@ -62,6 +63,11 @@ public class BookServiceImpl implements BookService {
         final List<BookDomainEvent> events = bookAndEvents.getEvents();
         eventPublisher.publish(savedBook, events);
         return savedBook;
+    }
+
+    @Override
+    public Book updateBook(UpdateBookReq req) throws BookNotFoundException {
+        return null;
     }
 
     @Override

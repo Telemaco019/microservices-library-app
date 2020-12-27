@@ -1,6 +1,7 @@
 package it.zanotti.poc.microservices.libraryapp.catalogueservice.adapters.rest;
 
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOrUpdateBookReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateBookReq;
+import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.UpdateBookReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.exceptions.BookNotFoundException;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.ports.BookService;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -29,9 +32,20 @@ public class BookController {
     }
 
     @PostMapping("/api/v1/books")
-    public ResponseEntity<Book> createOrUpdateBook(@RequestBody CreateOrUpdateBookReq request) {
+    public ResponseEntity<Book> createBook(@Valid @RequestBody CreateBookReq request) {
         final Book savedBook = bookService.createBook(request);
         return new ResponseEntity<>(savedBook, HttpStatus.OK);
+    }
+
+    @PutMapping("/api/v1/books")
+    public ResponseEntity<Book> updateBook(@Valid @RequestBody UpdateBookReq request) {
+        final Book savedBook;
+        try {
+            savedBook = bookService.updateBook(request);
+            return new ResponseEntity<>(savedBook, HttpStatus.OK);
+        } catch (BookNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/api/v1/books")
