@@ -1,8 +1,10 @@
 package it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.ports;
 
 import it.zanotti.poc.microservices.libraryapp.cataloguesearchservice.domain.model.BookDocument;
+import it.zanotti.poc.microservices.libraryapp.commons.OffsetBasedPageRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +22,9 @@ public class BookSearchService {
         this.bookRepository = bookRepository;
     }
 
-    public List<BookDocument> searchByText(String text) {
-        return bookRepository.findByTitleContainingOrDescriptionContainingOrSubtitleContaining(text);
+    public List<BookDocument> searchByText(String text, Integer limit, Integer offset) {
+        final OffsetBasedPageRequest pageRequest = new OffsetBasedPageRequest(limit, offset);
+        final Page<BookDocument> page = bookRepository.findByTextContent(text, pageRequest);
+        return page.getContent();
     }
 }

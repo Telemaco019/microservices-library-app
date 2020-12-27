@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,8 +30,8 @@ public class BookController {
     }
 
     @GetMapping("/api/v1/books/searchByText")
-    public ResponseEntity<List<SearchedBook>> searchByText(@RequestBody String text) {
-        final List<SearchedBook> searchedBookList = bookSearchService.searchByText(text)
+    public ResponseEntity<List<SearchedBook>> searchByText(@Valid @RequestBody SearchBooksByTextReq req) {
+        final List<SearchedBook> searchedBookList = bookSearchService.searchByText(req.getText(), req.getLimit(), req.getOffset())
                 .stream()
                 .map(bookDocumentConverter::toSearchedBook)
                 .collect(Collectors.toList());

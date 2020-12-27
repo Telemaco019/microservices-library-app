@@ -6,7 +6,7 @@ import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOr
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Book;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.exceptions.BookNotFoundException;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.utils.OffsetBasedPageRequest;
+import it.zanotti.poc.microservices.libraryapp.commons.OffsetBasedPageRequest;
 import it.zanotti.poc.microservices.libraryapp.commons.events.publisher.ResultWithDomainEvents;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

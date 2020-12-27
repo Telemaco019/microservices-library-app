@@ -4,7 +4,7 @@ import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.CreateOr
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.api.web.GetAuthorsReq;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.model.Author;
 import it.zanotti.poc.microservices.libraryapp.catalogueservice.domain.ports.AuthorRepository;
-import it.zanotti.poc.microservices.libraryapp.catalogueservice.utils.OffsetBasedPageRequest;
+import it.zanotti.poc.microservices.libraryapp.commons.OffsetBasedPageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

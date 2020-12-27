@@ -1,4 +1,4 @@
-package it.zanotti.poc.microservices.libraryapp.catalogueservice.utils;
+package it.zanotti.poc.microservices.libraryapp.commons;
 
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -54,7 +54,7 @@ public class OffsetBasedPageRequest implements Pageable {
      * @param limit  the size of the elements to be returned.
      */
     public OffsetBasedPageRequest(int limit, int offset) {
-        this(offset, limit, Sort.unsorted());
+        this(limit, offset, Sort.unsorted());
     }
 
     @Override
