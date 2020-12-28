@@ -9,22 +9,22 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "services.book.destinations")
 public class BookDestinations {
-    private String bookServiceUrl;
-    private String bookSearchServiceUrl;
+    private String catalogueServiceUrl;
+    private String catalogueSearchServiceUrl;
 
-    public String getBookServiceUrl() {
-        return bookServiceUrl;
+    public String getCatalogueServiceUrl() {
+        return catalogueServiceUrl;
     }
 
-    public String getBookSearchServiceUrl() {
-        return bookSearchServiceUrl;
+    public String getCatalogueSearchServiceUrl() {
+        return catalogueSearchServiceUrl;
     }
 
-    public void setBookServiceUrl(String bookServiceUrl) {
-        this.bookServiceUrl = bookServiceUrl;
+    public void setCatalogueServiceUrl(String catalogueServiceUrl) {
+        this.catalogueServiceUrl = catalogueServiceUrl;
     }
 
-    public void setBookSearchServiceUrl(String bookSearchServiceUrl) {
-        this.bookSearchServiceUrl = bookSearchServiceUrl;
+    public void setCatalogueSearchServiceUrl(String catalogueSearchServiceUrl) {
+        this.catalogueSearchServiceUrl = catalogueSearchServiceUrl;
     }
 }

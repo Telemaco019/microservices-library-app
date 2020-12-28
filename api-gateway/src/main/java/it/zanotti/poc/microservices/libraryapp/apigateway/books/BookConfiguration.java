@@ -17,15 +17,15 @@ public class BookConfiguration {
                 .route(r -> r.path("/books")
                         .and()
                         .method(HttpMethod.PUT, HttpMethod.POST)
-                        .uri(bookDestinations.getBookServiceUrl()))
+                        .uri(bookDestinations.getCatalogueServiceUrl()))
                 .route(r -> r.path("/books/searchByText")
                         .and()
                         .method(HttpMethod.GET)
-                        .uri(bookDestinations.getBookSearchServiceUrl()))
+                        .uri(bookDestinations.getCatalogueSearchServiceUrl()))
                 .route(r -> r.path("/books/{bookId}")
                         .and()
                         .method(HttpMethod.GET)
-                        .uri(bookDestinations.getBookServiceUrl()))
+                        .uri(bookDestinations.getCatalogueServiceUrl()))
                 .build();
     }
 }
