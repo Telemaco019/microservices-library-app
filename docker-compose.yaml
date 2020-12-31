@@ -4,8 +4,6 @@ services:
     image: postgres:13.1-alpine
     ports:
       - 5432:5432
-    expose:
-      - 5432
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
@@ -19,7 +17,7 @@ services:
   kafka0:
     image: wurstmeister/kafka
     expose:
-      - 9092
+      - 9092 # only for documentation (works event without it)
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka0
       KAFKA_ADVERTISED_PORT: 9092
@@ -32,8 +30,6 @@ services:
     image: solr:8.7.0
     ports:
       - 8983:8983
-    expose:
-      - 8983
     volumes:
     - solr-data:/var/solr
     entrypoint:
@@ -45,8 +41,6 @@ services:
     build: ./catalogue-service
     depends_on:
       - kafka0
-    expose:
-      - 8081
     environment:
       - KAFKA_BOOTSTRAP_SERVER=kafka0:9092
       - DATASOURCE_URL=jdbc:postgresql://postgres:5432/catalogue_service
@@ -58,8 +52,6 @@ services:
     build: ./catalogue-search-service
     depends_on:
       - catalogue-service
-    expose:
-      - 8082
     environment:
       - KAFKA_BOOTSTRAP_SERVER=kafka0:9092
       - SOLR_HOST=http://solr:8983/solr
@@ -73,7 +65,7 @@ services:
     - 8085:8085
     environment:
       - CATALOGUE_SERVICE_URL=http://catalogue-service:8081
-      - CATALOGUE_SEARCH_SERVICE_URL=http://catalogue-service:8082
+      - CATALOGUE_SEARCH_SERVICE_URL=http://catalogue-search-service:8082
 
 volumes:
   postgres-data:
