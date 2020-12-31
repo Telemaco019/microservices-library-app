@@ -1,0 +1,23 @@
+plugins {
+    id 'com.vaadin' version '0.8.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+version '0.0.1-SNAPSHOT'
+
+vaadin {
+    optimizeBundle = false // for dev only, remove in prod
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation "com.vaadin:vaadin-core:14.+"
+    implementation 'com.vaadin:vaadin-spring-boot-starter:14.+'
+
+    implementation project(':commons')
+}

@@ -5,3 +5,8 @@
 **/build
 
 **/.idea
+
+**/target
+**/webpack.config.js
+**/webpack.generated.js
+**/node_modules

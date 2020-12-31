@@ -33,6 +33,7 @@ public class AuthorController {
     public ResponseEntity<Author> createAuthor(@RequestBody CreateAuthorReq req) {
         final Author author = new Author();
         author.setName(req.getAuthorName());
+        author.setSurname(req.getAuthorSurname());
 
         return new ResponseEntity<>(authorRepository.save(author), HttpStatus.OK);
     }
@@ -41,7 +42,7 @@ public class AuthorController {
     public ResponseEntity<List<Author>> getAuthors(@RequestBody GetAuthorsReq req) {
         final Integer limit = req.getLimit();
         final Integer offset = req.getOffset();
-        final OffsetBasedPageRequest pageRequest = new OffsetBasedPageRequest(offset, limit);
+        final OffsetBasedPageRequest pageRequest = new OffsetBasedPageRequest(limit, offset);
         return new ResponseEntity<>(authorRepository.findAll(pageRequest), HttpStatus.OK);
     }
 
