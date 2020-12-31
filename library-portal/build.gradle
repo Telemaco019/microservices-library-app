@@ -18,6 +18,7 @@ dependencies {
 
     implementation "com.vaadin:vaadin-core:14.+"
     implementation 'com.vaadin:vaadin-spring-boot-starter:14.+'
+    implementation 'com.vaadin:vaadin-bom:14.+'
 
     implementation project(':commons')
 }
