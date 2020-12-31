@@ -20,7 +20,7 @@ public class BookConfiguration {
                         .uri(bookDestinations.getCatalogueServiceUrl()))
                 .route(r -> r.path("/books/searchByText")
                         .and()
-                        .method(HttpMethod.GET)
+                        .method(HttpMethod.PUT)
                         .uri(bookDestinations.getCatalogueSearchServiceUrl()))
                 .route(r -> r.path("/books/{bookId}")
                         .and()
