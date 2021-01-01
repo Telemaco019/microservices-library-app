@@ -1,7 +1,8 @@
 package it.zanotti.poc.libraryapp.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.apache.commons.compress.utils.Lists;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,17 +12,15 @@ import java.util.List;
  **/
 @Data
 public class BookSearchResult {
-    @SerializedName("id")
+    @JsonProperty("id")
     private Integer bookId;
-    @SerializedName("title")
+    @JsonProperty("title")
     private String bookTitle;
-    @SerializedName("subtitle")
+    @JsonProperty("subtitle")
     private String bookSubtitle;
-    @SerializedName("description")
+    @JsonProperty("description")
     private String bookDescription;
-    @SerializedName("authors")
-    private List<String> bookAuthors;
-    @SerializedName("publicationDate")
+    private List<String> bookAuthors = Lists.newArrayList();
     private LocalDate publicationDate;
 
     public String getAuthorsAsString() {

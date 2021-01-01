@@ -4,6 +4,7 @@ import it.zanotti.poc.libraryapp.model.BookSearchResult;
 import it.zanotti.poc.libraryapp.model.SearchByTextRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -27,6 +28,7 @@ public class LibraryService {
         return webClient.put()
                 .uri("/books/searchByText")
                 .body(BodyInserters.fromValue(new SearchByTextRequest(text, limit, offset)))
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToFlux(BookSearchResult.class)
                 .doOnError(e -> log.error("Error searching by text: {}", e.getMessage(), e))
