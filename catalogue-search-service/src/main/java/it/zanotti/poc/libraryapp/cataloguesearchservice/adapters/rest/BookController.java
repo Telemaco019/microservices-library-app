@@ -39,4 +39,10 @@ public class BookController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(searchedBookList, HttpStatus.OK);
     }
+
+    @PutMapping("/books/searchByText/count")
+    public ResponseEntity<Integer> searchByTextCount(@Valid @RequestBody String text) {
+        final Integer count = bookSearchService.searchByTextCount(text);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 }

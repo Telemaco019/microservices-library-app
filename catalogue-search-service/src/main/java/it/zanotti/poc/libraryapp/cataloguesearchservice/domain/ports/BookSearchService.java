@@ -27,4 +27,10 @@ public class BookSearchService {
         final Page<BookDocument> page = bookRepository.findByTextContent(text, pageRequest);
         return page.getContent();
     }
+
+    public Integer searchByTextCount(String text) {
+        final OffsetBasedPageRequest pageRequest = new OffsetBasedPageRequest(1, 0);
+        long totalElements = bookRepository.findByTextContent(text, pageRequest).getTotalElements();
+        return Math.toIntExact(totalElements);
+    }
 }
