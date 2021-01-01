@@ -39,7 +39,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
     }
 
     private void initGui() {
-        addNavigationTab("Catalogue", MainView.class);
+        addNavigationTab("Catalogue", CatalogueView.class);
         addNavigationTab("Reservations", ReservationManagementView.class);
         addNavigationTab("Profile", UserProfileView.class);
 
