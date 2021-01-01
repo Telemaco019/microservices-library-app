@@ -7,6 +7,8 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.function.Consumer;
 
@@ -35,7 +37,12 @@ public class SearchWidget extends VerticalLayout {
         final Button searchButton = new Button(VaadinIcon.SEARCH.create());
         searchButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
         searchButton.addClickListener(e -> onSearchClicked.accept(searchField.getValue()));
+        searchButton.setEnabled(Boolean.FALSE);
+        searchButton.getElement().getStyle().set("cursor", "pointer");
         searchFieldContainer.add(searchButton);
+
+        searchField.addValueChangeListener(e -> searchButton.setEnabled(StringUtils.isNotBlank(e.getValue())));
+        searchField.setValueChangeMode(ValueChangeMode.EAGER);
 
         add(searchFieldContainer);
         setWidthFull();
