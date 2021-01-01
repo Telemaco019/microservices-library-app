@@ -61,7 +61,7 @@ public class CatalogueView extends VerticalLayout {
     private void refreshGridDataProvider(String searchedText) {
         final CallbackDataProvider<BookSearchResult, Void> dataProvider = DataProvider.fromCallbacks(
                 query -> libraryService.searchByText(searchedText, query.getLimit(), query.getOffset()).toStream(),
-                query -> libraryService.searchByTextCount(searchedText).block(Duration.of(1, ChronoUnit.SECONDS))
+                query -> libraryService.searchByTextCount(searchedText).block(Duration.of(10, ChronoUnit.SECONDS))
         );
         resultsGrid.setDataProvider(dataProvider);
     }
