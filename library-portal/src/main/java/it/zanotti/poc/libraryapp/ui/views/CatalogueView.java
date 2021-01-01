@@ -12,6 +12,9 @@ import it.zanotti.poc.libraryapp.ui.components.SearchWidget;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
 /**
  * @author Michele Zanotti on 31/12/20
  **/
@@ -58,7 +61,7 @@ public class CatalogueView extends VerticalLayout {
     private void refreshGridDataProvider(String searchedText) {
         final CallbackDataProvider<BookSearchResult, Void> dataProvider = DataProvider.fromCallbacks(
                 query -> libraryService.searchByText(searchedText, query.getLimit(), query.getOffset()).toStream(),
-                query -> libraryService.searchByTextCount(searchedText)
+                query -> libraryService.searchByTextCount(searchedText).block(Duration.of(1, ChronoUnit.SECONDS))
         );
         resultsGrid.setDataProvider(dataProvider);
     }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * @author Michele Zanotti on 31/12/20
@@ -32,7 +33,12 @@ public class LibraryService {
                 .onErrorStop();
     }
 
-    public int searchByTextCount(String searchedText) {
-        return 1;
+    public Mono<Integer> searchByTextCount(String searchedText) {
+        return webClient.put()
+                .uri("/books/searchByText/count")
+                .body(BodyInserters.fromValue(searchedText))
+                .retrieve()
+                .bodyToMono(Integer.class)
+                .doOnError(e -> log.error("Error searching by text: {}", e.getMessage(), e));
     }
 }
