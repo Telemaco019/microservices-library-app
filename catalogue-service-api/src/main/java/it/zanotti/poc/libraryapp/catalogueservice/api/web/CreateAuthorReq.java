@@ -11,6 +11,4 @@ import javax.validation.constraints.NotNull;
 public class CreateAuthorReq {
     @NotNull
     private String authorName;
-    @NotNull
-    private String authorSurname;
 }
