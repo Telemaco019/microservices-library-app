@@ -17,9 +17,7 @@ public class CreateBookReq {
     private String title;
     @NotEmpty
     private List<Integer> authors = Lists.newArrayList();
-    @NotNull
     private String subtitle;
-    @NotNull
     private String description;
     private Integer pages;
     private String publisher;
