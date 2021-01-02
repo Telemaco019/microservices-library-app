@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * @author Michele Zanotti on 26/12/20
@@ -25,11 +26,15 @@ import java.util.stream.Collectors;
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
     private final BookDomainEventPublisher eventPublisher;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, BookDomainEventPublisher eventPublisher) {
+    public BookServiceImpl(BookRepository bookRepository,
+                           AuthorRepository authorRepository,
+                           BookDomainEventPublisher eventPublisher) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
         this.eventPublisher = eventPublisher;
     }
 
@@ -45,13 +50,10 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Book createBook(CreateBookReq req) {
+        final List<Author> authors = StreamSupport.stream(authorRepository.findAllById(req.getAuthors()).spliterator(), false)
+                .collect(Collectors.toList());
         final ResultWithDomainEvents<Book, BookDomainEvent> bookAndEvents = Book.BookBuilder.newBook()
-                .withAuthors(
-                        req.getAuthors()
-                                .stream()
-                                .map(Author::new)
-                                .collect(Collectors.toList())
-                )
+                .withAuthors(authors)
                 .withTitle(req.getTitle())
                 .withDescription(req.getDescription())
                 .withPublishedDate(req.getPublishedDate())
