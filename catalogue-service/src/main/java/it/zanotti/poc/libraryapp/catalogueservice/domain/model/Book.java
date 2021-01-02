@@ -31,7 +31,7 @@ public class Book {
     private Integer pages;
     private String publisher;
     private String description;
-    private LocalDate publishedDate;
+    private LocalDate publicationDate;
     @ManyToMany(targetEntity = Author.class, cascade = CascadeType.MERGE)
     private List<Author> authors;
 
@@ -80,8 +80,8 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withPublishedDate(LocalDate publishedDate) {
-            book.setPublishedDate(publishedDate);
+        public BookBuilder withPublicationdDate(LocalDate publishedDate) {
+            book.setPublicationDate(publishedDate);
             return this;
         }
 
@@ -96,7 +96,7 @@ public class Book {
             bookCreatedEvent.setBookTitle(book.getTitle());
             bookCreatedEvent.setDescription(book.getDescription());
             bookCreatedEvent.setPages(book.getPages());
-            bookCreatedEvent.setPublishedDate(book.getPublishedDate());
+            bookCreatedEvent.setPublishedDate(book.getPublicationDate());
             bookCreatedEvent.setSubtitle(book.getSubtitle());
             bookCreatedEvent.setPublisher(book.getPublisher());
             bookCreatedEvent.setAuthors(authors);

@@ -50,9 +50,9 @@ public class CatalogueView extends VerticalLayout {
         result.addColumn(BookSearchResult::getAuthorsAsString)
                 .setKey("authors")
                 .setHeader("Authors");
-        result.addColumn(BookSearchResult::getPublicationDate)
-                .setKey("publication-date")
-                .setHeader("Publication date");
+        result.addColumn(BookSearchResult::getPublicationYear)
+                .setKey("publication-year")
+                .setHeader("Publication year");
 
         result.addThemeVariants(GridVariant.MATERIAL_COLUMN_DIVIDERS);
         return result;

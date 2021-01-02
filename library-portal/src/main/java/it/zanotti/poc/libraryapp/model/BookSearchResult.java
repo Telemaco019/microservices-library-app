@@ -5,7 +5,6 @@ import lombok.Data;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +23,8 @@ public class BookSearchResult {
     private String bookDescription;
     @JsonProperty("authors")
     private List<String> bookAuthors = Lists.newArrayList();
-    private LocalDate publicationDate;
+    @JsonProperty("publicationYear")
+    private Integer publicationYear;
 
     public String getAuthorsAsString() {
         return Objects.isNull(bookAuthors) ?

@@ -2,7 +2,6 @@ package it.zanotti.poc.libraryapp.cataloguesearchservice.api;
 
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,5 +14,5 @@ public class SearchedBook {
     private String subtitle;
     private String description;
     private List<String> authors;
-    private LocalDate publicationDate;
+    private Integer publicationYear;
 }

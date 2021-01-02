@@ -1,5 +1,6 @@
 package it.zanotti.poc.libraryapp.catalogueservice.api.web;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.Lists;
 import lombok.Data;
 
@@ -21,5 +22,6 @@ public class CreateBookReq {
     private String description;
     private Integer pages;
     private String publisher;
-    private LocalDate publishedDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate publicationDate;
 }

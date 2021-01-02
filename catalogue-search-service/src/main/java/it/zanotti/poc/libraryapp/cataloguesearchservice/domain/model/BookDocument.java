@@ -5,6 +5,7 @@ import lombok.Data;
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -23,4 +24,6 @@ public class BookDocument {
     private String description;
     @Field
     private List<String> authors;
+    @Field
+    private LocalDate publicationDate;
 }

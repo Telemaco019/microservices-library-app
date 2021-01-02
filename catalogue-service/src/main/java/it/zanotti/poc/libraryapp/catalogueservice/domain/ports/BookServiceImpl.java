@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService {
                 .withAuthors(authors)
                 .withTitle(req.getTitle())
                 .withDescription(req.getDescription())
-                .withPublishedDate(req.getPublishedDate())
+                .withPublicationdDate(req.getPublicationDate())
                 .withSubtitle(req.getSubtitle())
                 .withPages(req.getPages())
                 .withPublisher(req.getPublisher())

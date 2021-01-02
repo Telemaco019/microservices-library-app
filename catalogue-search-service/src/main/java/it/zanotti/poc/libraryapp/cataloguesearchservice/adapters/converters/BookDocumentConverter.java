@@ -5,6 +5,9 @@ import it.zanotti.poc.libraryapp.cataloguesearchservice.domain.model.BookDocumen
 import it.zanotti.poc.libraryapp.catalogueservice.api.events.BookCreatedEvent;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 /**
  * @author Michele Zanotti on 26/12/20
  **/
@@ -17,6 +20,7 @@ public class BookDocumentConverter {
         result.setDescription(bookCreatedEvent.getDescription());
         result.setTitle(bookCreatedEvent.getBookTitle());
         result.setSubtitle(bookCreatedEvent.getSubtitle());
+        result.setPublicationDate(bookCreatedEvent.getPublishedDate());
         return result;
     }
 
@@ -27,6 +31,9 @@ public class BookDocumentConverter {
         result.setSubtitle(bookDocument.getSubtitle());
         result.setTitle(bookDocument.getTitle());
         result.setId(bookDocument.getId());
+        Optional.ofNullable(bookDocument.getPublicationDate())
+                .map(LocalDate::getYear)
+                .ifPresent(result::setPublicationYear);
         return result;
     }
 }
