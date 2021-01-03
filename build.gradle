@@ -12,6 +12,10 @@ allprojects {
     }
 }
 
+ext {
+    set('springCloudVersion', "2020.0.0")
+}
+
 subprojects {
     group = rootProject.group
 
