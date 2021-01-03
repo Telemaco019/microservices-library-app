@@ -47,7 +47,7 @@ services:
       - DATASOURCE_URL=jdbc:postgresql://postgres:5432/catalogue_service
       - DATASOURCE_USERNAME=catalogue_service_user
       - DATASOURCE_PASSWORD=catalogue_service_password
-      - EUREKA_SERVER=http://eureka-service:8761
+      - EUREKA_SERVER=http://eureka-service:8761/eureka
 
 
   catalogue-search-service:
@@ -64,6 +64,8 @@ services:
     build: ./eureka-service
     ports:
     - 8761:8761
+    environment:
+    - EUREKA_SERVER=http://eureka-service:8761/eureka
 
   api-gateway:
     build: ./api-gateway
@@ -74,8 +76,9 @@ services:
     ports:
     - 8085:8085
     environment:
-      - CATALOGUE_SERVICE_URL=http://catalogue-service:8081
-      - CATALOGUE_SEARCH_SERVICE_URL=http://catalogue-search-service:8082
+      - CATALOGUE_SERVICE_URL=lb://catalogue-service
+      - CATALOGUE_SEARCH_SERVICE_URL=lb://catalogue-search-service
+      - EUREKA_SERVER=http://eureka-service:8761/eureka
 
 volumes:
   postgres-data:
