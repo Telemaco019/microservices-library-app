@@ -27,6 +27,7 @@ subprojects {
         // Use junit platform for unit tests
         useJUnitPlatform()
     }
+
     dependencies {
         // Utils
         implementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'

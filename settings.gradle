@@ -9,4 +9,5 @@ include 'catalogue-service-api'
 include 'catalogue-search-service-api'
 include 'api-gateway'
 include 'library-portal'
+include 'eureka-service'
 

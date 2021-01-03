@@ -56,6 +56,9 @@ services:
       - KAFKA_BOOTSTRAP_SERVER=kafka0:9092
       - SOLR_HOST=http://solr:8983/solr
 
+  eureka-service:
+    build: ./eureka-service
+
   api-gateway:
     build: ./api-gateway
     depends_on:
