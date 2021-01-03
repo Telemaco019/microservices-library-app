@@ -10,3 +10,6 @@
 **/webpack.config.js
 **/webpack.generated.js
 **/node_modules
+
+scripts/env
+scripts/venv
