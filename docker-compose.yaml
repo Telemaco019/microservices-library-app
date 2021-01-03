@@ -41,29 +41,36 @@ services:
     build: ./catalogue-service
     depends_on:
       - kafka0
+      - eureka-service
     environment:
       - KAFKA_BOOTSTRAP_SERVER=kafka0:9092
       - DATASOURCE_URL=jdbc:postgresql://postgres:5432/catalogue_service
       - DATASOURCE_USERNAME=catalogue_service_user
       - DATASOURCE_PASSWORD=catalogue_service_password
+      - EUREKA_SERVER=http://eureka-service:8761
 
 
   catalogue-search-service:
     build: ./catalogue-search-service
     depends_on:
       - catalogue-service
+      - eureka-service
     environment:
       - KAFKA_BOOTSTRAP_SERVER=kafka0:9092
       - SOLR_HOST=http://solr:8983/solr
+      - EUREKA_SERVER=http://eureka-service:8761/eureka
 
   eureka-service:
     build: ./eureka-service
+    ports:
+    - 8761:8761
 
   api-gateway:
     build: ./api-gateway
     depends_on:
       - catalogue-service
       - catalogue-search-service
+      - eureka-service
     ports:
     - 8085:8085
     environment:
